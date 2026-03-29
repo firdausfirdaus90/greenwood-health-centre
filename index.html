@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greenwood Health Centre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/splitting/dist/splitting.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/splitting/dist/splitting-cells.css" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --deep: #071A12;
+  --dark: #0E2A1B;
+  --primary: #2D6A4F;
+  --mid: #40916C;
+  --bright: #52B788;
+  --light: #74C69D;
+  --pale: #B7E4C7;
+  --ghost: #D8F3DC;
+  --whisper: #F0F9F2;
+  --bg: #FAFCFB;
+  --white: #FFFFFF;
+  --text: #1D1D1F;
+  --text-2: #6E6E73;
+  --text-3: #86868B;
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-accent: 'DM Sans', system-ui, sans-serif;
+  --font: 'DM Sans', system-ui, sans-serif;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+html { font-size: 16px; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: none;
+}
+
+::selection { background: var(--pale); color: var(--deep); }
+
+a, button, input, textarea { cursor: none; }
+
+/* ══════════════════════════════════════
+   CUSTOM CURSOR
+   ══════════════════════════════════════ */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.3s, background 0.3s;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.cursor.hovering {
+  width: 50px;
+  height: 50px;
+  background: rgba(82, 183, 136, 0.15);
+  border-color: var(--bright);
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: var(--primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+}
+
+/* ══════════════════════════════════════
+   NAV
+   ══════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0;
+  transition: all 0.6s var(--ease);
+}
+
+.nav-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav.scrolled {
+  background: rgba(250, 252, 251, 0.72);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav-logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-logo-mark svg { width: 32px; height: 32px; }
+
+.nav-logo-label {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-2);
+  font-size: 0.82rem;
+  font-weight: 400;
+  transition: color 0.3s;
+  letter-spacing: -0.005em;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  background: var(--primary) !important;
+  color: var(--white) !important;
+  padding: 0.45rem 1.2rem !important;
+  border-radius: 980px;
+  font-weight: 500 !important;
+  transition: all 0.3s var(--ease) !important;
+}
+
+.nav-cta:hover {
+  background: var(--dark) !important;
+  transform: scale(1.04);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 8px;
+}
+.nav-toggle span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--text);
+  margin: 4px 0;
+  border-radius: 2px;
+}
+
+/* ══════════════════════════════════════
+   HERO — Mesh Gradient + Text Reveal
+   ══════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 7rem 2rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mesh gradient background */
+.hero-mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(at 20% 30%, rgba(183, 231, 199, 0.5) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(116, 198, 157, 0.3) 0%, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(210, 243, 220, 0.6) 0%, transparent 50%),
+    radial-gradient(at 90% 70%, rgba(82, 183, 136, 0.15) 0%, transparent 40%),
+    radial-gradient(at 10% 90%, rgba(201, 168, 108, 0.08) 0%, transparent 40%);
+  background-color: var(--bg);
+  animation: meshShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes meshShift {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(8deg); }
+}
+
+/* Dot grid overlay */
+.hero-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(45, 106, 79, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-accent);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  letter-spacing: 0.02em;
+}
+
+.hero-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--bright);
+  border-radius: 50%;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 8vw, 5.8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  text-transform: none;
+}
+
+/* Splitting.js styles */
+.hero h1 .word { overflow: hidden; display: inline-flex; }
+.hero h1 .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.hero h1 .green-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--mid) 60%, var(--bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-tagline {
+  font-family: var(--font-accent);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+}
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-2);
+  font-weight: 400;
+  max-width: 520px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+  opacity: 0;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+}
+
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.85rem 2rem;
+  border-radius: 980px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  border: none;
+  cursor: none;
+  transition: all 0.4s var(--ease);
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-filled {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.btn-filled::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--bright), var(--primary));
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.btn-filled:hover::before { opacity: 1; }
+.btn-filled span { position: relative; z-index: 2; }
+.btn-filled:hover { transform: scale(1.05); box-shadow: 0 8px 32px rgba(45, 106, 79, 0.3); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--primary);
+}
+
+.btn-ghost:hover { color: var(--dark); }
+.btn-ghost .arrow {
+  transition: transform 0.3s var(--ease);
+  display: inline-block;
+}
+.btn-ghost:hover .arrow { transform: translateX(4px); }
+
+/* Hero wave divider */
+.hero-wave {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+  line-height: 0;
+}
+
+.hero-wave svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ══════════════════════════════════════
+   QUICK ACCESS — Glassmorphism
+   ══════════════════════════════════════ */
+.quick {
+  padding: 2.5rem 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+
+.quick-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(45, 106, 79, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  border-radius: 24px;
+  padding: 2rem 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  text-align: center;
+  transition: all 0.5s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(82, 183, 136, 0.08), rgba(45, 106, 79, 0.04));
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.quick-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(45, 106, 79, 0.12);
+  border-color: var(--pale);
+}
+
+.quick-card:hover::after { opacity: 1; }
+
+.quick-card > * { position: relative; z-index: 2; }
+
+.quick-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.2rem;
+  transition: all 0.4s var(--ease);
+}
+
+.quick-card-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.quick-card:hover .quick-card-icon { transform: scale(1.1) translateY(-4px); }
+
+@keyframes cardFadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.quick-card {
+  animation: cardFadeUp 0.7s ease both;
+}
+.quick-card:nth-child(1) { animation-delay: 1.6s; }
+.quick-card:nth-child(2) { animation-delay: 1.7s; }
+.quick-card:nth-child(3) { animation-delay: 1.8s; }
+.quick-card:nth-child(4) { animation-delay: 1.9s; }
+
+.quick-card h3 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+
+.quick-card p {
+  font-size: 0.8rem;
+  color: var(--text-3);
+}
+
+.quick-card .link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--primary);
+  font-weight: 500;
+  margin-top: 0.8rem;
+  transition: gap 0.3s var(--ease);
+}
+
+.quick-card:hover .link-arrow { gap: 0.6rem; }
+
+/* ══════════════════════════════════════
+   SECTION HEADERS
+   ══════════════════════════════════════ */
+.section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  margin-bottom: 1rem;
+}
+
+.section-header p {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--text-2);
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+/* ══════════════════════════════════════
+   ABOUT + STATS
+   ══════════════════════════════════════ */
+.about {
+  padding: 4rem 2rem;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.about-text {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.about-text p {
+  font-size: 1.15rem;
+  color: var(--text-2);
+  font-weight: 400;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+}
+
+.about-chips {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.2rem;
+  background: var(--whisper);
+  border-radius: 980px;
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 500;
+  border: 1px solid rgba(45, 106, 79, 0.08);
+}
+
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--whisper);
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(45, 106, 79, 0.06);
+}
+
+.stat {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.stat:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: var(--pale);
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  color: var(--text-3);
+  font-weight: 400;
+}
+
+/* ══════════════════════════════════════
+   SVG WAVE DIVIDERS
+   ══════════════════════════════════════ */
+.wave-divider {
+  width: 100%;
+  line-height: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.wave-divider svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ══════════════════════════════════════
+   SERVICES — 3D Tilt Cards
+   ══════════════════════════════════════ */
+.services {
+  padding: 4rem 2rem;
+  background: var(--white);
+  position: relative;
+}
+
+.services-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.service-tile {
+  background: var(--whisper);
+  border-radius: 28px;
+  padding: 2.5rem 2rem;
+  transition: box-shadow 0.5s var(--ease);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+  border: 1px solid rgba(45, 106, 79, 0.04);
+}
+
+.service-tile:hover {
+  box-shadow: 0 30px 60px rgba(45, 106, 79, 0.15);
+}
+
+/* Shine effect on hover */
+.service-tile .shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.5) 45%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.5) 55%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  border-radius: 28px;
+}
+
+.service-tile:hover .shine { opacity: 1; }
+
+.service-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.4s var(--ease);
+  transform: translateZ(20px);
+}
+
+.service-icon-wrap svg { width: 28px; height: 28px; }
+
+.service-tile h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.6rem;
+  transform: translateZ(15px);
+}
+
+.service-tile p {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  font-weight: 400;
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
+  transform: translateZ(10px);
+}
+
+.service-learn {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transform: translateZ(10px);
+}
+
+.service-learn .arr {
+  transition: transform 0.3s var(--ease);
+}
+
+.service-tile:hover .service-learn .arr { transform: translateX(4px); }
+
+/* ══════════════════════════════════════
+   HOURS — Dark Cinematic Section
+   ══════════════════════════════════════ */
+.hours {
+  padding: 4rem 2rem;
+  background: var(--deep);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient glow */
+.hours-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(150px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.hours-glow-1 {
+  background: var(--bright);
+  top: -20%;
+  left: -10%;
+}
+
+.hours-glow-2 {
+  background: var(--primary);
+  bottom: -20%;
+  right: -10%;
+}
+
+.hours-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.hours .section-header h2 { color: var(--white); }
+.hours .section-header p { color: rgba(255, 255, 255, 0.45); }
+
+.hours-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.hours-table {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.15rem 1.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.3s;
+}
+
+.hours-row:last-child { border-bottom: none; }
+
+.hours-row.today { background: rgba(82, 183, 136, 0.1); }
+
+.hours-day {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.hours-row.today .hours-day::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--bright);
+  border-radius: 50%;
+  margin-right: 0.6rem;
+  vertical-align: middle;
+  box-shadow: 0 0 10px var(--bright);
+}
+
+.hours-time {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.9rem;
+}
+
+.hours-row.today .hours-time { color: var(--light); }
+.hours-row.closed .hours-time { color: rgba(255, 255, 255, 0.2); }
+
+.hours-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.hours-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  padding: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+}
+
+.hours-card h4 {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.hours-card p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.65;
+}
+
+.hours-111 {
+  background: linear-gradient(135deg, var(--primary), var(--mid));
+  border-radius: 20px;
+  padding: 2.2rem;
+  text-align: center;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.hours-111::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1), transparent 70%);
+}
+
+.hours-111 .big-num {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0.3rem 0;
+  position: relative;
+}
+
+.hours-111 .small-text {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
+  position: relative;
+}
+
+/* ══════════════════════════════════════
+   REGISTER
+   ══════════════════════════════════════ */
+.register {
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient mesh */
+.register-mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(at 30% 40%, rgba(183, 231, 199, 0.4) 0%, transparent 50%),
+    radial-gradient(at 70% 60%, rgba(116, 198, 157, 0.25) 0%, transparent 50%);
+  background-color: var(--bg);
+}
+
+.register-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.register-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  border-radius: 980px;
+  font-size: 0.82rem;
+  color: var(--primary);
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.register-inner h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  margin-bottom: 1.2rem;
+}
+
+.register-inner > p {
+  font-size: 1.1rem;
+  color: var(--text-2);
+  line-height: 1.65;
+  max-width: 520px;
+  margin: 0 auto 2rem;
+}
+
+.register-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.register-note {
+  font-size: 0.85rem;
+  color: var(--text-3);
+}
+
+/* ══════════════════════════════════════
+   NEWS
+   ══════════════════════════════════════ */
+.news {
+  padding: 3.5rem 2rem;
+  background: var(--white);
+}
+
+.news-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.news-card {
+  background: var(--whisper);
+  border-radius: 24px;
+  padding: 2rem;
+  display: flex;
+  gap: 1.2rem;
+  transition: all 0.4s var(--ease);
+  border: 1px solid transparent;
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(45, 106, 79, 0.08);
+  border-color: var(--pale);
+}
+
+.news-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.news-card-icon svg { width: 24px; height: 24px; }
+
+.news-card-date {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+}
+
+.news-card h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+}
+
+.news-card p {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════
+   CONTACT
+   ══════════════════════════════════════ */
+.contact {
+  padding: 4rem 2rem;
+  background: var(--bg);
+}
+
+.contact-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.contact-item-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: var(--whisper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(45, 106, 79, 0.06);
+}
+
+.contact-item-icon svg { width: 22px; height: 22px; }
+
+.contact-item-label {
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  color: var(--text-3);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.15rem;
+}
+
+.contact-item-value {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.5;
+}
+
+.contact-map {
+  margin-top: 1.5rem;
+  height: 200px;
+  background: var(--whisper);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(45, 106, 79, 0.06);
+}
+
+.contact-map::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(45, 106, 79, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 106, 79, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.contact-map svg { width: 40px; height: 40px; position: relative; z-index: 2; }
+.contact-map span { font-size: 0.82rem; color: var(--text-3); position: relative; z-index: 2; }
+
+.contact-form-card {
+  background: var(--white);
+  border-radius: 28px;
+  padding: 2.5rem;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.contact-form-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.8rem;
+}
+
+.form-group { margin-bottom: 1.2rem; }
+
+.form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-2);
+  margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
+  border-radius: 14px;
+  font-family: var(--font);
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--bg);
+  transition: all 0.3s var(--ease);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(45, 106, 79, 0.08);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--text-3); }
+
+.form-group textarea { resize: vertical; min-height: 110px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-submit .btn-pill { width: 100%; justify-content: center; padding: 0.9rem; }
+
+/* ══════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════ */
+.footer {
+  background: var(--deep);
+  color: rgba(255, 255, 255, 0.45);
+  padding: 2.5rem 2rem 0;
+}
+
+.footer-inner { max-width: 1100px; margin: 0 auto; }
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+
+.footer-brand-desc {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  max-width: 260px;
+}
+
+.footer h5 {
+  font-family: var(--font-accent);
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--light); }
+
+.footer-emergency-box {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  margin-bottom: 0.8rem;
+}
+
+.footer-emergency-box .num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.04em;
+}
+
+.footer-emergency-box .desc {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.footer-bottom {
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-bottom-links a {
+  color: rgba(255, 255, 255, 0.25);
+  text-decoration: none;
+  font-size: 0.78rem;
+  transition: color 0.3s;
+}
+
+.footer-bottom-links a:hover { color: rgba(255, 255, 255, 0.5); }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .hours-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  a, button, input, textarea { cursor: auto; }
+  .cursor, .cursor-dot { display: none; }
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: rgba(250, 252, 251, 0.95);
+    backdrop-filter: blur(24px);
+    padding: 1.5rem 2rem 2rem;
+    gap: 1rem;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+  }
+  .quick-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr; }
+  .stats-strip { grid-template-columns: repeat(2, 1fr); }
+  .stat:not(:last-child)::after { display: none; }
+  .news-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .quick-grid { grid-template-columns: 1fr; }
+  .stats-strip { grid-template-columns: 1fr; }
+  .register-actions { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-bar">
+    <a href="#" class="nav-logo" data-magnetic>
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="9" fill="#2D6A4F"/><path d="M16 8v16M8 16h16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </div>
+      <span class="nav-logo-label">Greenwood Health Centre</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#hours">Hours</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#register" class="nav-cta" data-magnetic>Book Appointment</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-mesh"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Now Accepting New Patients
+    </div>
+    <h1 data-splitting>Your Health.<br><span class="green-gradient">Our Priority.</span></h1>
+    <div class="hero-tagline">NHS General Practice &mdash; Forest of Dean</div>
+    <p class="hero-sub">Compassionate, high-quality NHS healthcare nestled in the heart of the Forest of Dean. Trusted by our community since 1952.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-pill btn-filled" data-magnetic><span>Book an Appointment</span></a>
+      <a href="#register" class="btn-pill btn-ghost">Register as a Patient <span class="arrow">&rsaquo;</span></a>
+    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,40 1440,35 L1440,60 L0,60 Z" fill="#FAFCFB"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══ QUICK ACCESS ═══ -->
+<section class="quick" id="quick">
+  <div class="quick-grid">
+    <a href="#" class="quick-card">
+      <div class="quick-card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><rect x="4" y="6" width="24" height="22" rx="4" stroke="#2D6A4F" stroke-width="2"/><path d="M4 14h24M10 2v6M22 2v6" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="21" r="2" fill="#52B788"/></svg>
+      </div>
+      <h3>Book Appointment</h3>
+      <p>Same-day &amp; routine</p>
+      <span class="link-arrow">Book now &#8250;</span>
+    </a>
+    <a href="#" class="quick-card">
+      <div class="quick-card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><rect x="6" y="4" width="20" height="24" rx="4" stroke="#2D6A4F" stroke-width="2"/><path d="M12 12h8M12 16h5" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"/><circle cx="22" cy="22" r="5" fill="#52B788"/><path d="M20 22h4M22 20v4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Repeat Prescription</h3>
+      <p>Order medication online</p>
+      <span class="link-arrow">Order now &#8250;</span>
+    </a>
+    <a href="#" class="quick-card">
+      <div class="quick-card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M8 4h16a4 4 0 014 4v16a4 4 0 01-4 4H8a4 4 0 01-4-4V8a4 4 0 014-4z" stroke="#2D6A4F" stroke-width="2"/><path d="M10 14l4 4 8-8" stroke="#52B788" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Test Results</h3>
+      <p>View securely online</p>
+      <span class="link-arrow">View results &#8250;</span>
+    </a>
+    <a href="#contact" class="quick-card">
+      <div class="quick-card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M6 8a4 4 0 014-4h12a4 4 0 014 4v10a4 4 0 01-4 4H14l-5 4v-4H10a4 4 0 01-4-4V8z" stroke="#2D6A4F" stroke-width="2"/><circle cx="12" cy="13" r="1.5" fill="#52B788"/><circle cx="16" cy="13" r="1.5" fill="#52B788"/><circle cx="20" cy="13" r="1.5" fill="#52B788"/></svg>
+      </div>
+      <h3>Contact Us</h3>
+      <p>Send us a message</p>
+      <span class="link-arrow">Get in touch &#8250;</span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="about" id="about">
+  <div class="section-header">
+    <h2>Healthcare rooted<br>in nature, since 1952.</h2>
+    <p>A well-established NHS GP practice nestled in the heart of the Forest of Dean.</p>
+  </div>
+  <div class="about-text">
+    <p>Our dedicated team of GPs, nurses, and healthcare professionals are committed to providing excellent, patient-centred primary care. We are a teaching practice affiliated with the University of Gloucestershire, combining decades of clinical experience with modern medical education.</p>
+    <div class="about-chips">
+      <div class="chip"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Same-day appointments</div>
+      <div class="chip"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Online services via NHS App</div>
+      <div class="chip"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Interpreter services</div>
+      <div class="chip"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Teaching practice</div>
+    </div>
+  </div>
+  <div class="stats-strip">
+    <div class="stat">
+      <div class="stat-num" data-count="5">0</div>
+      <div class="stat-label">Experienced GPs</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-count="10000" data-suffix="+">0</div>
+      <div class="stat-label">Registered Patients</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-count="70" data-suffix="+">0</div>
+      <div class="stat-label">Years of Service</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-text="Good">Good</div>
+      <div class="stat-label">CQC Rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,24 C240,48 480,0 720,24 C960,48 1200,0 1440,24 L1440,48 L0,48 Z" fill="#FFFFFF"/>
+  </svg>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="section-header">
+      <h2>Everything you need,<br>under one roof.</h2>
+      <p>Comprehensive primary care services for you and your family.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-tile" data-tilt>
+        <div class="shine"></div>
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 28 28" fill="none"><path d="M14 3a8 8 0 018 8c0 5-4 9-8 14C10 20 6 16 6 11a8 8 0 018-8z" stroke="#2D6A4F" stroke-width="2"/><circle cx="14" cy="11" r="3" fill="#52B788"/></svg>
+        </div>
+        <h3>General Consultations</h3>
+        <p>Routine and same-day appointments with our experienced GPs for all your health concerns.</p>
+        <span class="service-learn">Learn more <span class="arr">&#8250;</span></span>
+      </div>
+      <div class="service-tile" data-tilt>
+        <div class="shine"></div>
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 28 28" fill="none"><path d="M14 4C8 4 4 9 4 14s4 10 10 10 10-5 10-10S20 4 14 4z" stroke="#2D6A4F" stroke-width="2"/><path d="M4 14h4l3-5 4 10 3-5h6" stroke="#52B788" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Chronic Disease Management</h3>
+        <p>Diabetes, asthma, COPD, and hypertension monitoring with personalised care plans.</p>
+        <span class="service-learn">Learn more <span class="arr">&#8250;</span></span>
+      </div>
+      <div class="service-tile" data-tilt>
+        <div class="shine"></div>
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 28 28" fill="none"><path d="M14 24c6-4 10-8 10-12a6 6 0 00-10-4.5A6 6 0 004 12c0 4 4 8 10 12z" stroke="#2D6A4F" stroke-width="2" fill="none"/><path d="M14 24c6-4 10-8 10-12a6 6 0 00-10-4.5A6 6 0 004 12c0 4 4 8 10 12z" fill="#52B788" opacity="0.15"/></svg>
+        </div>
+        <h3>Women's Health</h3>
+        <p>Cervical screening, contraception advice, and comprehensive menopause support.</p>
+        <span class="service-learn">Learn more <span class="arr">&#8250;</span></span>
+      </div>
+      <div class="service-tile" data-tilt>
+        <div class="shine"></div>
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="6" stroke="#2D6A4F" stroke-width="2"/><path d="M8 21c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"/><path d="M14 7v6M11 10h6" stroke="#52B788" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Mental Health</h3>
+        <p>Counselling, CBT referrals, and compassionate support for anxiety and depression.</p>
+        <span class="service-learn">Learn more <span class="arr">&#8250;</span></span>
+      </div>
+      <div class="service-tile" data-tilt>
+        <div class="shine"></div>
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="4" stroke="#2D6A4F" stroke-width="2"/><path d="M7 24c0-4 3-7 7-7s7 3 7 7" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"/><circle cx="14" cy="10" r="1.5" fill="#52B788"/></svg>
+        </div>
+        <h3>Child Health</h3>
+        <p>Immunisations, developmental checks, and expert care for childhood illnesses.</p>
+        <span class="service-learn">Learn more <span class="arr">&#8250;</span></span>
+      </div>
+      <div class="service-tile" data-tilt>
+        <div class="shine"></div>
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 28 28" fill="none"><path d="M4 14l2-4h4l2 4-2 4H6l-2-4z" stroke="#2D6A4F" stroke-width="1.5"/><path d="M10 14l2-4h4l2 4-2 4h-4l-2-4z" stroke="#2D6A4F" stroke-width="1.5"/><path d="M16 14l2-4h4l2 4-2 4h-4l-2-4z" stroke="#2D6A4F" stroke-width="1.5"/><circle cx="14" cy="8" r="2" fill="#52B788"/></svg>
+        </div>
+        <h3>Travel Health</h3>
+        <p>Travel vaccinations and tailored health advice for your destination.</p>
+        <span class="service-learn">Learn more <span class="arr">&#8250;</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave into dark -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,18 C360,42 720,0 1080,30 C1260,39 1380,33 1440,24 L1440,48 L0,48 Z" fill="#071A12"/>
+  </svg>
+</div>
+
+<!-- ═══ HOURS ═══ -->
+<section class="hours" id="hours">
+  <div class="hours-glow hours-glow-1"></div>
+  <div class="hours-glow hours-glow-2"></div>
+  <div class="hours-inner">
+    <div class="section-header">
+      <h2>We're here when<br>you need us.</h2>
+      <p>Extended evening hours on Tuesdays and Thursdays.</p>
+    </div>
+    <div class="hours-grid">
+      <div class="hours-table">
+        <div class="hours-row" data-day="1"><span class="hours-day">Monday</span><span class="hours-time">8:00 AM &ndash; 6:30 PM</span></div>
+        <div class="hours-row" data-day="2"><span class="hours-day">Tuesday</span><span class="hours-time">8:00 AM &ndash; 8:00 PM</span></div>
+        <div class="hours-row" data-day="3"><span class="hours-day">Wednesday</span><span class="hours-time">8:00 AM &ndash; 6:30 PM</span></div>
+        <div class="hours-row" data-day="4"><span class="hours-day">Thursday</span><span class="hours-time">8:00 AM &ndash; 8:00 PM</span></div>
+        <div class="hours-row" data-day="5"><span class="hours-day">Friday</span><span class="hours-time">8:00 AM &ndash; 6:30 PM</span></div>
+        <div class="hours-row closed" data-day="6"><span class="hours-day">Saturday</span><span class="hours-time">Closed</span></div>
+        <div class="hours-row closed" data-day="0"><span class="hours-day">Sunday</span><span class="hours-time">Closed</span></div>
+      </div>
+      <div class="hours-sidebar">
+        <div class="hours-card">
+          <h4>Extended Hours</h4>
+          <p>Evening appointments available on Tuesdays and Thursdays until 8:00 PM. Book via reception or online.</p>
+        </div>
+        <div class="hours-card">
+          <h4>Bank Holidays</h4>
+          <p>We're closed on all bank holidays. For urgent concerns, please contact NHS 111.</p>
+        </div>
+        <div class="hours-111">
+          <div class="small-text">Out of hours? Call</div>
+          <div class="big-num">111</div>
+          <div class="small-text">For life-threatening emergencies, call 999</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave from dark -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,24 C360,0 720,48 1080,18 C1260,6 1380,15 1440,24 L1440,48 L0,48 Z" fill="#FAFCFB"/>
+  </svg>
+</div>
+
+<!-- ═══ REGISTER ═══ -->
+<section class="register" id="register">
+  <div class="register-mesh"></div>
+  <div class="register-inner">
+    <div class="register-badge">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1c1 2 3 3 3 5a3 3 0 01-6 0c0-2 2-3 3-5z" fill="#52B788"/><path d="M7 9v3M5 12h4" stroke="#2D6A4F" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Open for Registration
+    </div>
+    <h2>Join our practice.</h2>
+    <p>We welcome new patients who live within the Forest of Dean and surrounding Gloucestershire villages. Registration is quick and easy.</p>
+    <div class="register-actions">
+      <a href="#" class="btn-pill btn-filled" data-magnetic><span>Register Online</span></a>
+      <a href="#" class="btn-pill btn-ghost">Download Forms <span class="arrow">&rsaquo;</span></a>
+    </div>
+    <p class="register-note">You can also register in person at reception during opening hours. Please bring photo ID and proof of address.</p>
+  </div>
+</section>
+
+<!-- Wave -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,18 C480,36 960,0 1440,18 L1440,36 L0,36 Z" fill="#FFFFFF"/>
+  </svg>
+</div>
+
+<!-- ═══ NEWS ═══ -->
+<section class="news" id="news">
+  <div class="news-inner">
+    <div class="section-header">
+      <h2>Latest updates.</h2>
+      <p>Important news and announcements for our patients.</p>
+    </div>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 017 7c0 4-3 7-7 11-4-4-7-7-7-11a7 7 0 017-7z" stroke="#2D6A4F" stroke-width="1.5"/><path d="M12 6v4M10 8h4" stroke="#52B788" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="news-card-date">March 2026</div>
+          <h3>Flu &amp; COVID Booster Vaccinations Now Available</h3>
+          <p>Protect yourself this season. Book your flu jab and COVID booster through reception or the NHS App.</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#2D6A4F" stroke-width="1.5" stroke-linejoin="round"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="news-card-date">31 March 2026</div>
+          <h3>Bank Holiday Monday &mdash; Practice Closed</h3>
+          <p>We'll be closed on Monday 31st March. For urgent queries, call NHS 111. In emergencies, call 999.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="section-header">
+      <h2>Get in touch.</h2>
+      <p>We'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 22 22" fill="none"><path d="M11 2C7 2 3 6 3 10c0 5 8 10 8 10s8-5 8-10c0-4-4-8-8-8z" stroke="#2D6A4F" stroke-width="1.5"/><circle cx="11" cy="10" r="2.5" fill="#52B788"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Address</div>
+              <div class="contact-item-value">Greenwood Health Centre<br>1 Mossy Hollow Lane<br>Deepwood, Forest of Dean GL16 8QT</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 22 22" fill="none"><rect x="3" y="5" width="16" height="12" rx="3" stroke="#2D6A4F" stroke-width="1.5"/><path d="M3 8l8 5 8-5" stroke="#52B788" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-value">hello@greenwoodhc.nhs.uk</div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M20 5C14 5 9 10 9 15c0 7 11 18 11 18s11-11 11-18c0-5-5-10-11-10z" fill="#D8F3DC" stroke="#2D6A4F" stroke-width="1.5"/><circle cx="20" cy="15" r="4" fill="#52B788"/></svg>
+          <span>Mossy Hollow Lane, Deepwood, Forest of Dean GL16 8QT</span>
+        </div>
+      </div>
+      <div class="contact-form-card">
+        <h3>Send a message</h3>
+        <form onsubmit="event.preventDefault(); let b=this.querySelector('.btn-pill span'); b.textContent='Sent!'; setTimeout(()=>b.textContent='Send Message',2000);">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="John Smith">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" placeholder="07XXX XXXXXX">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="How can we help you?"></textarea>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn-pill btn-filled" data-magnetic><span>Send Message</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave into footer -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,12 C360,36 720,0 1080,24 C1260,33 1380,21 1440,12 L1440,36 L0,36 Z" fill="#071A12"/>
+  </svg>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Greenwood Health Centre</div>
+        <p class="footer-brand-desc">Providing compassionate, high-quality NHS healthcare deep in the Forest of Dean for over 70 years.</p>
+      </div>
+      <div>
+        <h5>Practice</h5>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#hours">Opening Hours</a></li>
+          <li><a href="#register">Register</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Resources</h5>
+        <ul class="footer-links">
+          <li><a href="#">Patient Access</a></li>
+          <li><a href="#">NHS App</a></li>
+          <li><a href="#">Repeat Prescriptions</a></li>
+          <li><a href="#">Test Results</a></li>
+          <li><a href="#">NHS Choices</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Emergency</h5>
+        <div class="footer-emergency-box">
+          <div class="num">999</div>
+          <div class="desc">Life-threatening</div>
+        </div>
+        <div class="footer-emergency-box">
+          <div class="num">111</div>
+          <div class="desc">Urgent medical advice</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Greenwood Health Centre. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS — GSAP, ScrollTrigger, Lenis, Splitting
+     ══════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/splitting/dist/splitting.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+<script>
+// ══════════════════════════════════════
+// LENIS — Butter-smooth scrolling
+// ══════════════════════════════════════
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  touchMultiplier: 2,
+  smoothWheel: true,
+});
+
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// ══════════════════════════════════════
+// CUSTOM CURSOR
+// ══════════════════════════════════════
+const cursor = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursorDot');
+let cursorX = 0, cursorY = 0;
+let dotX = 0, dotY = 0;
+
+if (window.innerWidth > 768) {
+  document.addEventListener('mousemove', (e) => {
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+    gsap.to(cursorDot, { x: cursorX, y: cursorY, duration: 0.1, ease: 'power2.out' });
+    gsap.to(cursor, { x: cursorX, y: cursorY, duration: 0.35, ease: 'power2.out' });
+  });
+
+  document.querySelectorAll('a, button, input, textarea, .quick-card, .service-tile, .news-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+  });
+}
+
+// ══════════════════════════════════════
+// MAGNETIC BUTTONS
+// ══════════════════════════════════════
+document.querySelectorAll('[data-magnetic]').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: 'power2.out' });
+  });
+  btn.addEventListener('mouseleave', () => {
+    gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.3)' });
+  });
+});
+
+// ══════════════════════════════════════
+// SPLITTING.JS — Hero text reveal
+// ══════════════════════════════════════
+Splitting();
+
+// Animate hero
+const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+tl.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8 }, 0.2)
+  .to('.hero h1 .char', {
+    y: 0,
+    opacity: 1,
+    duration: 0.8,
+    stagger: 0.025,
+  }, 0.4)
+  .to('.hero-tagline', { opacity: 1, duration: 0.6 }, 0.85)
+  .to('.hero-sub', { opacity: 1, y: 0, duration: 0.8 }, 0.95)
+  .to('.hero-actions', { opacity: 1, y: 0, duration: 0.8 }, 1.15);
+
+// ══════════════════════════════════════
+// GSAP SCROLL ANIMATIONS
+// ══════════════════════════════════════
+gsap.registerPlugin(ScrollTrigger);
+
+// Quick cards — handled by CSS animation, no GSAP dependency
+
+// About section
+gsap.from('.about .section-header', {
+  scrollTrigger: { trigger: '.about', start: 'top 75%' },
+  y: 50,
+  opacity: 0,
+  duration: 1,
+  ease: 'power3.out',
+});
+
+gsap.from('.about-text', {
+  scrollTrigger: { trigger: '.about-text', start: 'top 80%' },
+  y: 40,
+  opacity: 0,
+  duration: 0.8,
+  ease: 'power3.out',
+});
+
+gsap.from('.about-chips .chip', {
+  scrollTrigger: { trigger: '.about-chips', start: 'top 85%' },
+  scale: 0.8,
+  opacity: 0,
+  duration: 0.5,
+  stagger: 0.08,
+  ease: 'back.out(1.5)',
+});
+
+// Stats counter animation
+gsap.from('.stats-strip', {
+  scrollTrigger: { trigger: '.stats-strip', start: 'top 80%' },
+  y: 40,
+  opacity: 0,
+  duration: 0.8,
+  ease: 'power3.out',
+  onComplete: () => {
+    document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      if (target > 100) {
+        gsap.to(el, {
+          textContent: target,
+          duration: 2,
+          ease: 'power2.out',
+          snap: { textContent: 100 },
+          onUpdate() { el.textContent = Math.round(parseFloat(el.textContent)).toLocaleString() + suffix; },
+        });
+      } else {
+        gsap.to(el, {
+          textContent: target,
+          duration: 1.5,
+          ease: 'power2.out',
+          snap: { textContent: 1 },
+          onUpdate() { el.textContent = Math.round(parseFloat(el.textContent)) + suffix; },
+        });
+      }
+    });
+  },
+});
+
+// Services
+gsap.from('.services .section-header', {
+  scrollTrigger: { trigger: '.services', start: 'top 70%' },
+  y: 50,
+  opacity: 0,
+  duration: 1,
+  ease: 'power3.out',
+});
+
+gsap.from('.service-tile', {
+  scrollTrigger: { trigger: '.services-grid', start: 'top 80%' },
+  y: 80,
+  opacity: 0,
+  duration: 0.8,
+  stagger: 0.1,
+  ease: 'power3.out',
+});
+
+// Hours
+gsap.from('.hours .section-header', {
+  scrollTrigger: { trigger: '.hours', start: 'top 70%' },
+  y: 50,
+  opacity: 0,
+  duration: 1,
+  ease: 'power3.out',
+});
+
+gsap.from('.hours-row', {
+  scrollTrigger: { trigger: '.hours-table', start: 'top 80%' },
+  x: -30,
+  opacity: 0,
+  duration: 0.5,
+  stagger: 0.06,
+  ease: 'power2.out',
+});
+
+gsap.from('.hours-sidebar > *', {
+  scrollTrigger: { trigger: '.hours-sidebar', start: 'top 80%' },
+  y: 40,
+  opacity: 0,
+  duration: 0.6,
+  stagger: 0.12,
+  ease: 'power3.out',
+});
+
+// Register
+gsap.from('.register-inner > *', {
+  scrollTrigger: { trigger: '.register', start: 'top 70%' },
+  y: 40,
+  opacity: 0,
+  duration: 0.7,
+  stagger: 0.1,
+  ease: 'power3.out',
+});
+
+// News
+gsap.from('.news .section-header', {
+  scrollTrigger: { trigger: '.news', start: 'top 75%' },
+  y: 40,
+  opacity: 0,
+  duration: 0.8,
+  ease: 'power3.out',
+});
+
+gsap.from('.news-card', {
+  scrollTrigger: { trigger: '.news-grid', start: 'top 80%' },
+  y: 50,
+  opacity: 0,
+  duration: 0.7,
+  stagger: 0.15,
+  ease: 'power3.out',
+});
+
+// Contact
+gsap.from('.contact .section-header', {
+  scrollTrigger: { trigger: '.contact', start: 'top 75%' },
+  y: 40,
+  opacity: 0,
+  duration: 0.8,
+  ease: 'power3.out',
+});
+
+gsap.from('.contact-grid > *', {
+  scrollTrigger: { trigger: '.contact-grid', start: 'top 80%' },
+  y: 60,
+  opacity: 0,
+  duration: 0.8,
+  stagger: 0.2,
+  ease: 'power3.out',
+});
+
+// ══════════════════════════════════════
+// 3D TILT — Service cards
+// ══════════════════════════════════════
+document.querySelectorAll('[data-tilt]').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const rotateX = (0.5 - y) * 12;
+    const rotateY = (x - 0.5) * 12;
+
+    gsap.to(card, {
+      rotateX,
+      rotateY,
+      duration: 0.4,
+      ease: 'power2.out',
+      transformPerspective: 800,
+    });
+
+    // Move shine based on cursor position
+    const shine = card.querySelector('.shine');
+    if (shine) {
+      gsap.to(shine, {
+        backgroundPosition: `${x * 100}% ${y * 100}%`,
+        duration: 0.3,
+      });
+    }
+  });
+
+  card.addEventListener('mouseleave', () => {
+    gsap.to(card, {
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.6,
+      ease: 'elastic.out(1, 0.4)',
+    });
+  });
+});
+
+// ══════════════════════════════════════
+// NAV
+// ══════════════════════════════════════
+const nav = document.getElementById('nav');
+ScrollTrigger.create({
+  start: 20,
+  onUpdate: (self) => {
+    nav.classList.toggle('scrolled', self.scroll() > 20);
+  },
+});
+
+// Mobile toggle
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => links.classList.remove('open'))
+);
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -60 });
+    }
+  });
+});
+
+// Highlight today
+const today = new Date().getDay();
+document.querySelectorAll('.hours-row').forEach(row => {
+  if (parseInt(row.dataset.day) === today) row.classList.add('today');
+});
+</script>
+
+</body>
+</html>
